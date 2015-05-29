@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwitcherLib", "SwitcherLib\SwitcherLib.csproj", "{5F9F52A6-9EF4-4C71-9A91-F5B864A57ABB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaPool", "MediaPool\MediaPool.csproj", "{A17A1F1D-C1F7-4489-8D55-E75C5FEFFF69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaUpload", "MediaUpload\MediaUpload.csproj", "{ED13F395-B644-42DC-9BBA-5157B238F277}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F9F52A6-9EF4-4C71-9A91-F5B864A57ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F9F52A6-9EF4-4C71-9A91-F5B864A57ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F9F52A6-9EF4-4C71-9A91-F5B864A57ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F9F52A6-9EF4-4C71-9A91-F5B864A57ABB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A17A1F1D-C1F7-4489-8D55-E75C5FEFFF69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A17A1F1D-C1F7-4489-8D55-E75C5FEFFF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A17A1F1D-C1F7-4489-8D55-E75C5FEFFF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A17A1F1D-C1F7-4489-8D55-E75C5FEFFF69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED13F395-B644-42DC-9BBA-5157B238F277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED13F395-B644-42DC-9BBA-5157B238F277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED13F395-B644-42DC-9BBA-5157B238F277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED13F395-B644-42DC-9BBA-5157B238F277}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
