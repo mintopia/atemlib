@@ -9,8 +9,11 @@ namespace SwitcherLib
 {
     public class SwitcherInput
     {
-        public string Name;
         public long ID;
+        public string Label;
+        public string Name;  
+        //public Boolean PortType;
+
 
         public SwitcherInput()
         {

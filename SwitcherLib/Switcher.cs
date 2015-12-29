@@ -191,13 +191,16 @@ namespace SwitcherLib
             while (input != null)
             {
                 string inputName;
+                string inputLabel;
+                //Boolean inputPortType;
                 long inputId;
 
                 input.GetInputId(out inputId);
                 input.GetString(_BMDSwitcherInputPropertyId.bmdSwitcherInputPropertyIdLongName, out inputName);
-
+                input.GetString(_BMDSwitcherInputPropertyId.bmdSwitcherInputPropertyIdShortName, out inputLabel);
+                //input.GetFlag(_BMDSwitcherInputPropertyId.bmdSwitcherInputPropertyIdPortType, out inputPortType);
                 // Add items to list:
-                list.Add(new SwitcherInput() {Name=inputName, ID = inputId});
+                list.Add(new SwitcherInput() {Name=inputName, ID = inputId, Label = inputLabel});
 
                 inputIterator.Next(out input);
             }
