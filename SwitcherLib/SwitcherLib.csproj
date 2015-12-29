@@ -33,19 +33,25 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Management.Automation" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Callbacks\SwitcherEvents.cs" />
     <Compile Include="Callbacks\Stills.cs" />
     <Compile Include="Callbacks\UploadLock.cs" />
     <Compile Include="ConsoleUtils.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="MediaStill.cs" />
+    <Compile Include="Support Classes\AsyncPSCmdlet.cs" />
+    <Compile Include="Support Classes\AsyncPump.cs" />
     <Compile Include="Switcher.cs" />
+    <Compile Include="SwitcherInput.cs" />
     <Compile Include="Upload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SwitcherLibException.cs" />

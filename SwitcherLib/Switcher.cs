@@ -66,7 +66,13 @@ namespace SwitcherLib
             this.switcher.GetProductName(out productName);
             return productName;
         }
-
+        public String GetVideoMode()
+        {
+            this.Connect();
+            _BMDSwitcherVideoMode videoMode;
+            this.switcher.GetVideoMode(out videoMode);
+            return videoMode.ToString();
+        }
         public int GetVideoHeight()
         {
             this.Connect();
@@ -167,5 +173,37 @@ namespace SwitcherLib
             return list;
         }
 
+        public IList<SwitcherInput> GetInputs()
+        {
+            IList<SwitcherInput> list = new List<SwitcherInput>();
+            IBMDSwitcherInputIterator inputIterator = null;
+            IntPtr inputIteratorPtr;
+            Guid inputIteratorIID = typeof(IBMDSwitcherInputIterator).GUID;
+            switcher.CreateIterator(ref inputIteratorIID, out inputIteratorPtr);
+            if (inputIteratorPtr != null)
+            {
+                inputIterator = (IBMDSwitcherInputIterator)Marshal.GetObjectForIUnknown(inputIteratorPtr);
+            }
+
+
+            IBMDSwitcherInput input;
+            inputIterator.Next(out input);
+            while (input != null)
+            {
+                string inputName;
+                long inputId;
+
+                input.GetInputId(out inputId);
+                input.GetString(_BMDSwitcherInputPropertyId.bmdSwitcherInputPropertyIdLongName, out inputName);
+
+                // Add items to list:
+                list.Add(new SwitcherInput() {Name=inputName, ID = inputId});
+
+                inputIterator.Next(out input);
+            }
+
+            return list;
+
+        }
     }
 }
