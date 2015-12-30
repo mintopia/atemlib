@@ -13,13 +13,16 @@ CONTENTS OF THIS FILE
 INTRODUCTION
 ------------
 
-Version: 2.0.0
+Version: 2.0.1
 Current Maintainer: Michael Smith <me@murray-mint.co.uk>
+This fork maintained by Ian Morrish <ian_morrish@hotmail.com>
 
 MediaUpload.exe allows you to upload images to specific slots in a
 BlackMagic ATEM switcher's media pool.
 
 MediaPool.exe lists all the media in the switcher's media pool.
+
+SwitcherLib.dll can be used from PowerShell script to automate ATEM functions
 
 MEDIAUPLOAD.EXE USAGE
 ---------------------
@@ -108,6 +111,7 @@ This has been tested with a Blackmagic Design ATEM Production Studio 4K. I do
 not have access to any other switchers to test with, but if they use version
 6.2 of the SDK, then they should work.
 
+SwitcherLib.dll has been tested with PowerShell on Windows 10 and a Television Studio only
 
 CONTACT DETAILS
 ---------------
