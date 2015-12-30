@@ -10,6 +10,7 @@ namespace SwitcherLib
 {
     public class Switcher
     {
+        public static IBMDSwitcherMixEffectBlock m_mixEffectBlock1;
         protected IBMDSwitcher switcher;
         protected String deviceAddress;
         protected bool connected;
@@ -38,6 +39,34 @@ namespace SwitcherLib
             {
                 switcherDiscovery.ConnectTo(this.deviceAddress, out this.switcher, out failReason);
                 this.connected = true;
+
+                // Get the first Mix Effect block (ME 1). 
+                m_mixEffectBlock1 = null;
+
+                IBMDSwitcherMixEffectBlockIterator meIterator = null;
+                IntPtr meIteratorPtr;
+                Guid meIteratorIID = typeof(IBMDSwitcherMixEffectBlockIterator).GUID;
+                switcher.CreateIterator(ref meIteratorIID, out meIteratorPtr);
+                if (meIteratorPtr != null)
+                {
+                    meIterator = (IBMDSwitcherMixEffectBlockIterator)Marshal.GetObjectForIUnknown(meIteratorPtr);
+                }
+
+                if (meIterator == null)
+                    return;
+
+                if (meIterator != null)
+                {
+                    meIterator.Next(out m_mixEffectBlock1);
+                }
+
+                if (m_mixEffectBlock1 == null)
+                {
+                    throw new SwitcherLibException("Unexpected: Could not get first mix effect block");
+                    
+                }
+
+
             }
             catch (COMException ex)
             {
@@ -201,7 +230,7 @@ namespace SwitcherLib
                 input.GetString(_BMDSwitcherInputPropertyId.bmdSwitcherInputPropertyIdShortName, out inputLabel);
                 input.GetInt(_BMDSwitcherInputPropertyId.bmdSwitcherInputPropertyIdPortType, out inputPortType);
                 //must be a better way of getting the port type as a string value - fix this hack when I know what I'm doing
-                switch(inputPortType)
+                switch (inputPortType)
                 {
                     case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeExternal:
                         iPortType = "External Port";
@@ -233,13 +262,67 @@ namespace SwitcherLib
 
                 }
                 // Add items to list:
-                list.Add(new SwitcherInput() {Name=inputName, ID = inputId, Label = inputLabel, PortType = iPortType});
+                list.Add(new SwitcherInput() { Name = inputName, ID = inputId, Label = inputLabel, PortType = iPortType });
 
                 inputIterator.Next(out input);
             }
 
             return list;
 
+        }
+
+        public class ProgramInput
+        {
+            private long InputId;
+            public long inputId
+            { 
+                get
+                    {
+                    m_mixEffectBlock1.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, out InputId);
+                    return InputId;
+                }
+                set
+                {
+                    if (m_mixEffectBlock1 != null)
+                    {
+                        m_mixEffectBlock1.SetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, value);
+                     }
+                }
+            }
+        }
+        public class PreviewInput
+        {
+            private long InputId;
+            public long inputId
+            {
+                get
+                {
+                     m_mixEffectBlock1.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, out InputId);
+                    return InputId;
+                }
+                set
+                {
+                    if (m_mixEffectBlock1 != null)
+                    {
+                        m_mixEffectBlock1.SetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, value);
+                    }
+                }
+            }
+        }
+
+        public void Cut()
+        {
+            if (m_mixEffectBlock1 != null)
+            {
+                m_mixEffectBlock1.PerformCut();
+            }
+        }
+        public void AutoTransition()
+        {
+            if (m_mixEffectBlock1 != null)
+            {
+                m_mixEffectBlock1.PerformAutoTransition();
+            }
         }
     }
 }

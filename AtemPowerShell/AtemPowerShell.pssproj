@@ -26,7 +26,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="SwitcherLib.dll" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Example.ps1" />
   </ItemGroup>
