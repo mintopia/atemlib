@@ -192,15 +192,48 @@ namespace SwitcherLib
             {
                 string inputName;
                 string inputLabel;
-                //Boolean inputPortType;
+                string iPortType;
+                long inputPortType;
                 long inputId;
 
                 input.GetInputId(out inputId);
                 input.GetString(_BMDSwitcherInputPropertyId.bmdSwitcherInputPropertyIdLongName, out inputName);
                 input.GetString(_BMDSwitcherInputPropertyId.bmdSwitcherInputPropertyIdShortName, out inputLabel);
-                //input.GetFlag(_BMDSwitcherInputPropertyId.bmdSwitcherInputPropertyIdPortType, out inputPortType);
+                input.GetInt(_BMDSwitcherInputPropertyId.bmdSwitcherInputPropertyIdPortType, out inputPortType);
+                //must be a better way of getting the port type as a string value - fix this hack when I know what I'm doing
+                switch(inputPortType)
+                {
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeExternal:
+                        iPortType = "External Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeBlack:
+                        iPortType = "Black Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeColorBars:
+                        iPortType = "Color Bars Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeColorGenerator:
+                        iPortType = "Color Generator Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeMediaPlayerFill:
+                        iPortType = "Media Player Fill Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeMediaPlayerCut:
+                        iPortType = "Media Player Cut Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeSuperSource:
+                        iPortType = "Super Source Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeMixEffectBlockOutput:
+                        iPortType = "ME Block Port";
+                        break;
+
+                    default:
+                        throw new SwitcherLibException(String.Format("Unsupported port type: {0}", inputPortType.ToString()));
+
+                }
                 // Add items to list:
-                list.Add(new SwitcherInput() {Name=inputName, ID = inputId, Label = inputLabel});
+                list.Add(new SwitcherInput() {Name=inputName, ID = inputId, Label = inputLabel, PortType = iPortType});
 
                 inputIterator.Next(out input);
             }

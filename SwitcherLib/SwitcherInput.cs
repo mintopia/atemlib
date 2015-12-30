@@ -12,7 +12,7 @@ namespace SwitcherLib
         public long ID;
         public string Label;
         public string Name;  
-        //public Boolean PortType;
+        public string PortType;
 
 
         public SwitcherInput()
