@@ -27,9 +27,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="SwitcherLib.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Example.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
