@@ -297,7 +297,7 @@ namespace SwitcherLib
             {
                 get
                 {
-                     m_mixEffectBlock1.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, out InputId);
+                     m_mixEffectBlock1.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, out InputId);
                     return InputId;
                 }
                 set
@@ -322,6 +322,13 @@ namespace SwitcherLib
             if (m_mixEffectBlock1 != null)
             {
                 m_mixEffectBlock1.PerformAutoTransition();
+            }
+        }
+        public void FTB()
+        {
+            if (m_mixEffectBlock1 != null)
+            {
+                m_mixEffectBlock1.PerformFadeToBlack();
             }
         }
     }
