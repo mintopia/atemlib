@@ -256,7 +256,12 @@ namespace SwitcherLib
                     case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeMixEffectBlockOutput:
                         iPortType = "ME Block Port";
                         break;
-
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeAuxOutput:
+                        iPortType = "Aux Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeKeyCutOutput:
+                        iPortType = "Aux Port";
+                        break;
                     default:
                         throw new SwitcherLibException(String.Format("Unsupported port type: {0}", inputPortType.ToString()));
 
