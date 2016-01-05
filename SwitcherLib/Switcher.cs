@@ -336,5 +336,6 @@ namespace SwitcherLib
                 m_mixEffectBlock1.PerformFadeToBlack();
             }
         }
+
     }
 }

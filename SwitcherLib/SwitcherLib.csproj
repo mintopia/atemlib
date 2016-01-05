@@ -45,6 +45,7 @@
     <Compile Include="Callbacks\SwitcherEvents.cs" />
     <Compile Include="Callbacks\Stills.cs" />
     <Compile Include="Callbacks\UploadLock.cs" />
+    <Compile Include="ColorInput.cs" />
     <Compile Include="ConsoleUtils.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="MediaStill.cs" />
