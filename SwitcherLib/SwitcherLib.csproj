@@ -45,9 +45,11 @@
     <Compile Include="Callbacks\SwitcherEvents.cs" />
     <Compile Include="Callbacks\Stills.cs" />
     <Compile Include="Callbacks\UploadLock.cs" />
+    <Compile Include="Media.cs" />
     <Compile Include="ColorInput.cs" />
     <Compile Include="ConsoleUtils.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="MediaPlayer.cs" />
     <Compile Include="MediaStill.cs" />
     <Compile Include="MixerEffect.cs" />
     <Compile Include="Support Classes\AsyncPSCmdlet.cs" />

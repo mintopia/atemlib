@@ -13,6 +13,8 @@ Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "AtemPowerShell", "AtemPower
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATEMInputs", "ATEMInputs\ATEMInputs.csproj", "{EAE14ED5-C48A-4551-94D0-00B265C55CE0}"
 EndProject
+Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "PowerShellATEM", "PowerShellATEM\PowerShellATEM.pssproj", "{B9FFA43E-BE9C-482D-9FAD-D3CC2F553240}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{EAE14ED5-C48A-4551-94D0-00B265C55CE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAE14ED5-C48A-4551-94D0-00B265C55CE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAE14ED5-C48A-4551-94D0-00B265C55CE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9FFA43E-BE9C-482D-9FAD-D3CC2F553240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9FFA43E-BE9C-482D-9FAD-D3CC2F553240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9FFA43E-BE9C-482D-9FAD-D3CC2F553240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9FFA43E-BE9C-482D-9FAD-D3CC2F553240}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

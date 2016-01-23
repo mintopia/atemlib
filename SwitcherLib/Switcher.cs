@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SwitcherLib
 {
-    public class Switcher
+    public partial class Switcher
     {
         public static IBMDSwitcherMixEffectBlock m_mixEffectBlock1;
         protected IBMDSwitcher switcher;
@@ -63,7 +63,7 @@ namespace SwitcherLib
                 if (m_mixEffectBlock1 == null)
                 {
                     throw new SwitcherLibException("Unexpected: Could not get first mix effect block");
-                    
+
                 }
 
 
@@ -280,9 +280,9 @@ namespace SwitcherLib
         {
             private long InputId;
             public long inputId
-            { 
+            {
                 get
-                    {
+                {
                     m_mixEffectBlock1.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, out InputId);
                     return InputId;
                 }
@@ -291,7 +291,7 @@ namespace SwitcherLib
                     if (m_mixEffectBlock1 != null)
                     {
                         m_mixEffectBlock1.SetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, value);
-                     }
+                    }
                 }
             }
         }
@@ -302,7 +302,7 @@ namespace SwitcherLib
             {
                 get
                 {
-                     m_mixEffectBlock1.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, out InputId);
+                    m_mixEffectBlock1.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, out InputId);
                     return InputId;
                 }
                 set
@@ -322,10 +322,18 @@ namespace SwitcherLib
                 m_mixEffectBlock1.PerformCut();
             }
         }
-        public void AutoTransition()
+        public void AutoTransition(double dTransitionFrames = 0)
         {
             if (m_mixEffectBlock1 != null)
             {
+                if (dTransitionFrames != 0)
+                {
+                    //double dTransitionFrames = dFramesPerSecond * dTransitionSeconds;
+                    BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters m_params =
+                    (BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters)m_mixEffectBlock1;
+
+                    m_params.SetRate((uint)dTransitionFrames);
+                }
                 m_mixEffectBlock1.PerformAutoTransition();
             }
         }
@@ -336,6 +344,5 @@ namespace SwitcherLib
                 m_mixEffectBlock1.PerformFadeToBlack();
             }
         }
-
     }
 }

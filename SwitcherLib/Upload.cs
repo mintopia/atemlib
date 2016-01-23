@@ -34,7 +34,8 @@ namespace SwitcherLib
             this.switcher = switcher;
             this.filename = filename;
             this.uploadSlot = uploadSlot;
-
+            //check
+            
             if (!File.Exists(filename))
             {
                 throw new SwitcherLibException(String.Format("{0} does not exist", filename));
@@ -42,6 +43,7 @@ namespace SwitcherLib
 
             this.switcher.Connect();
             this.stills = this.GetStills();
+
         }
 
         public bool InProgress()
@@ -76,6 +78,17 @@ namespace SwitcherLib
             this.frame = this.GetFrame();
             this.lockCallback = (IBMDSwitcherLockCallback)new UploadLock(this);
             this.stills.Lock(this.lockCallback);
+            
+        }
+        public void StartBlocking()
+        {
+            this.currentStatus = Upload.Status.Started;
+            this.frame = this.GetFrame();
+            this.lockCallback = (IBMDSwitcherLockCallback)new UploadLock(this);
+            this.stills.Lock(this.lockCallback);
+            while (currentStatus != Status.Completed)
+            {
+                           }
         }
 
         protected IBMDSwitcherFrame GetFrame()
