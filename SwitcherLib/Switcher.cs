@@ -329,6 +329,7 @@ namespace SwitcherLib
                 if (dTransitionFrames != 0)
                 {
                     //double dTransitionFrames = dFramesPerSecond * dTransitionSeconds;
+                    // ToDo - get current transition rate and then restore it after end of autotransition.
                     BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters m_params =
                     (BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters)m_mixEffectBlock1;
 
