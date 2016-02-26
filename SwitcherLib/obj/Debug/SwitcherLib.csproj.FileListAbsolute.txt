@@ -1,0 +1,7 @@
+C:\Users\imorrish\Documents\GitHub\atemlib\SwitcherLib\bin\Debug\SwitcherLib.dll
+C:\Users\imorrish\Documents\GitHub\atemlib\SwitcherLib\bin\Debug\SwitcherLib.pdb
+C:\Users\imorrish\Documents\GitHub\atemlib\SwitcherLib\obj\Debug\SwitcherLib.csprojResolveAssemblyReference.cache
+C:\Users\imorrish\Documents\GitHub\atemlib\SwitcherLib\obj\Debug\Interop.BMDSwitcherAPI.dll
+C:\Users\imorrish\Documents\GitHub\atemlib\SwitcherLib\obj\Debug\SwitcherLib.csproj.ResolveComReference.cache
+C:\Users\imorrish\Documents\GitHub\atemlib\SwitcherLib\obj\Debug\SwitcherLib.dll
+C:\Users\imorrish\Documents\GitHub\atemlib\SwitcherLib\obj\Debug\SwitcherLib.pdb
