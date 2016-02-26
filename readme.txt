@@ -22,8 +22,12 @@ BlackMagic ATEM switcher's media pool.
 
 MediaPool.exe lists all the media in the switcher's media pool.
 
+AtemInputs.exe lists all the input labels and names.
+
 SwitcherLib.dll can be used from PowerShell script to automate ATEM functions
 Demo video https://youtu.be/h1GUKFynT9g
+More info on automating ATEM and CasparCG in my other project
+
 
 MEDIAUPLOAD.EXE USAGE
 ---------------------
