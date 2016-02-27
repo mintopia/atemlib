@@ -10,8 +10,6 @@ namespace SwitcherLib
 {
     public partial class Switcher
     {
-        
-
         public uint GetMacroCount()
         {
             this.Connect();
@@ -20,23 +18,33 @@ namespace SwitcherLib
             switcherMacroPool.GetMaxCount(out macroCount);
             return macroCount;
         }
-        public string GetMacro(uint index)
+        public string[] GetMacro(uint index)
         {
             this.Connect();
             string macroName;
+            string macroDescription;
+            int isValid;
+            string isMacro;
             IBMDSwitcherMacroPool switcherMacroPool = (IBMDSwitcherMacroPool)this.switcher;
-            switcherMacroPool.GetDescription(index, out macroName);
-            return macroName;
+            switcherMacroPool.GetDescription(index, out macroDescription);
+            switcherMacroPool.GetName(index, out macroName);
+            switcherMacroPool.IsValid(index, out isValid);
+            if (isValid == 1)
+            {
+                isMacro = "true";
+            }
+            else { 
+                    isMacro = "False";
+            }
+            return new string[] { macroName, macroDescription, isMacro };
         }
-        public string RunMacro(uint index)
+        public void RunMacro(uint index)
         {
-            this.Connect();
-            string status;
+            //this.Connect();
             IBMDSwitcherMacroControl switcherMacroControl = (IBMDSwitcherMacroControl)this.switcher;
             switcherMacroControl.Run(index);
-            status = "started";
-            return status;
-        }
+         }
+
 
     }
 }

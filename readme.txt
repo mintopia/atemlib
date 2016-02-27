@@ -15,16 +15,17 @@ INTRODUCTION
 
 Version: 2.0.1
 Current Maintainer: Michael Smith <me@murray-mint.co.uk>
-This fork maintained by Ian Morrish <ian_morrish@hotmail.com>
+This fork with (new) capabilities maintained by Ian Morrish <ian_morrish@hotmail.com>
 
 MediaUpload.exe allows you to upload images to specific slots in a
 BlackMagic ATEM switcher's media pool.
 
 MediaPool.exe lists all the media in the switcher's media pool.
 
-AtemInputs.exe lists all the input labels and names.
+(new) AtemInputs.exe lists all the input labels and names.
 
 SwitcherLib.dll can be used from PowerShell script to automate ATEM functions
+(new) Inputs, Program, Preview, Cut, Autotransition, Macros
 Demo video https://youtu.be/h1GUKFynT9g
 More info on automating ATEM and CasparCG in my other project
 
