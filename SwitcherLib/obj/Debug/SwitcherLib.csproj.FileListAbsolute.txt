@@ -5,3 +5,4 @@ C:\Users\imorrish\Documents\GitHub\atemlib\SwitcherLib\obj\Debug\Interop.BMDSwit
 C:\Users\imorrish\Documents\GitHub\atemlib\SwitcherLib\obj\Debug\SwitcherLib.csproj.ResolveComReference.cache
 C:\Users\imorrish\Documents\GitHub\atemlib\SwitcherLib\obj\Debug\SwitcherLib.dll
 C:\Users\imorrish\Documents\GitHub\atemlib\SwitcherLib\obj\Debug\SwitcherLib.pdb
+C:\Users\imorrish\Documents\GitHub\atemlib\SwitcherLib\bin\Debug\Interop.BMDSwitcherAPI.dll

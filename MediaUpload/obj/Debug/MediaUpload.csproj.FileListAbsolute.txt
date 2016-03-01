@@ -8,3 +8,4 @@ C:\Users\imorrish\Documents\GitHub\atemlib\MediaUpload\bin\Debug\Newtonsoft.Json
 C:\Users\imorrish\Documents\GitHub\atemlib\MediaUpload\obj\Debug\MediaUpload.csprojResolveAssemblyReference.cache
 C:\Users\imorrish\Documents\GitHub\atemlib\MediaUpload\obj\Debug\MediaUpload.exe
 C:\Users\imorrish\Documents\GitHub\atemlib\MediaUpload\obj\Debug\MediaUpload.pdb
+C:\Users\imorrish\Documents\GitHub\atemlib\MediaUpload\bin\Debug\Interop.BMDSwitcherAPI.dll

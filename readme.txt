@@ -87,7 +87,7 @@ REQUIREMENTS
 
    http://www.microsoft.com/en-gb/download/details.aspx?id=30653
 
- - Blackmagic ATEM Switchers Update 6.2
+ - Blackmagic ATEM Switchers Update 6.4 (Note: this is not the latest version of BMD switcher software but will work if you have a more recent version)
 
    https://www.blackmagicdesign.com/uk/support/family/atem-live-production-switchers
 
