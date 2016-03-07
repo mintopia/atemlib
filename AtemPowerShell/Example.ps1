@@ -1,7 +1,6 @@
 ﻿#
 # Example.ps1
 #
-    }
 #Check ATEM API is installed
 function Get-ComRegisteredPath
 {
