@@ -13,9 +13,16 @@ CONTENTS OF THIS FILE
 INTRODUCTION
 ------------
 
-Version: 2.0.1
-Current Maintainer: Michael Smith <me@murray-mint.co.uk>
 This fork with (new) capabilities maintained by Ian Morrish <ian_morrish@hotmail.com>
+Version: 2.0.3
+Cuurent Status: Suffereing DLL Hell with BMD Com+ API - may give error 80040154 Class not registerred". I'm working on it.
+Original Maintainer: Michael Smith <me@murray-mint.co.uk>
+Version: 2.0.1
+
+SwitcherLib.dll can be used from PowerShell script to automate ATEM functions
+(new) Inputs, Program, Preview, Cut, Autotransition, Macros
+Demo video https://youtu.be/h1GUKFynT9g
+More info on automating ATEM and CasparCG in my other project https://github.com/imorrish/GasparCG-PowerShell
 
 MediaUpload.exe allows you to upload images to specific slots in a
 BlackMagic ATEM switcher's media pool.
@@ -24,10 +31,7 @@ MediaPool.exe lists all the media in the switcher's media pool.
 
 (new) AtemInputs.exe lists all the input labels and names.
 
-SwitcherLib.dll can be used from PowerShell script to automate ATEM functions
-(new) Inputs, Program, Preview, Cut, Autotransition, Macros
-Demo video https://youtu.be/h1GUKFynT9g
-More info on automating ATEM and CasparCG in my other project
+
 
 
 MEDIAUPLOAD.EXE USAGE
