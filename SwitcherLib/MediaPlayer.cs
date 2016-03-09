@@ -9,7 +9,7 @@ namespace SwitcherLib
 {
     public class MediaPlayer
     {
-        public uint Slot;
+        public uint Still;
 
         public MediaPlayer()
         {
@@ -17,7 +17,14 @@ namespace SwitcherLib
         public MediaPlayer(IBMDSwitcherMediaPlayer player, uint index)
         {
             _BMDSwitcherMediaPlayerSourceType type;
-            player.GetSource(out type, out Slot);
+            
+            player.GetSource(out type, out this.Still);
+            if (type == _BMDSwitcherMediaPlayerSourceType.bmdSwitcherMediaPlayerSourceTypeStill)
+            {
+
+            }
+
+
         }
 
     }

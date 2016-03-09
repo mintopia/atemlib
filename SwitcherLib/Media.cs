@@ -31,7 +31,7 @@ namespace SwitcherLib
                 mediaPlayer.GetSource(out type, out index);
                 if (type == _BMDSwitcherMediaPlayerSourceType.bmdSwitcherMediaPlayerSourceTypeStill)
                 {
-                    int num2 = (int)index + 1;
+                    //need to set the Still # for this player object
 
                 }
                 num1++;
@@ -39,9 +39,5 @@ namespace SwitcherLib
             }
             return list;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-
     }
 }

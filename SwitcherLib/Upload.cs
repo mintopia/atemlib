@@ -99,7 +99,7 @@ namespace SwitcherLib
             IntPtr buffer;
             byte[] source;
             frame.GetBytes(out buffer);
-            switch (Path.GetExtension(this.filename))
+            switch (Path.GetExtension(this.filename).ToLower())
             {
                 case ".jpg":
                 case ".png":
