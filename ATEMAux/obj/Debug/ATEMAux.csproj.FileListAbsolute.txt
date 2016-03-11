@@ -1,0 +1,8 @@
+C:\Users\imorrish\Documents\GitHub\atemlib\ATEMAux\bin\Debug\ATEMAux.exe.config
+C:\Users\imorrish\Documents\GitHub\atemlib\ATEMAux\bin\Debug\ATEMAux.exe
+C:\Users\imorrish\Documents\GitHub\atemlib\ATEMAux\bin\Debug\ATEMAux.pdb
+C:\Users\imorrish\Documents\GitHub\atemlib\ATEMAux\bin\Debug\SwitcherLib.dll
+C:\Users\imorrish\Documents\GitHub\atemlib\ATEMAux\bin\Debug\SwitcherLib.pdb
+C:\Users\imorrish\Documents\GitHub\atemlib\ATEMAux\obj\Debug\ATEMAux.csprojResolveAssemblyReference.cache
+C:\Users\imorrish\Documents\GitHub\atemlib\ATEMAux\obj\Debug\ATEMAux.exe
+C:\Users\imorrish\Documents\GitHub\atemlib\ATEMAux\obj\Debug\ATEMAux.pdb
