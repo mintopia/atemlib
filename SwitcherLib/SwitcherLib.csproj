@@ -56,8 +56,10 @@
     <Compile Include="MixerEffect.cs" />
     <Compile Include="Support Classes\AsyncPSCmdlet.cs" />
     <Compile Include="Support Classes\AsyncPump.cs" />
+    <Compile Include="Switcher.Aux.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="Switcher.Graphics.cs" />
+    <Compile Include="SwitcherAuxInput.cs" />
     <Compile Include="SwitcherInput.cs" />
     <Compile Include="Upload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

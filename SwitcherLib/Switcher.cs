@@ -65,7 +65,7 @@ namespace SwitcherLib
                     throw new SwitcherLibException("Unexpected: Could not get first mix effect block");
 
                 }
-
+                
 
             }
             catch (COMException ex)

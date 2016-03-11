@@ -76,4 +76,27 @@ namespace SwitcherLib.Callbacks
             }
         }
     }
+    class AuxMonitor : IBMDSwitcherInputAuxCallback
+    {
+        public event SwitcherEventHandler AuxSourceChanged;
+
+        private int m_aux_number;
+        public int AuxNumber { get { return m_aux_number; } }
+
+        public AuxMonitor(int aux_number)
+        {
+            m_aux_number = aux_number;
+        }
+
+        void IBMDSwitcherInputAuxCallback.Notify(_BMDSwitcherInputAuxEventType eventType)
+        {
+            switch (eventType)
+            {
+                case _BMDSwitcherInputAuxEventType.bmdSwitcherInputAuxEventTypeInputSourceChanged:
+                    if (AuxSourceChanged != null)
+                        AuxSourceChanged(this, null);
+                    break;
+            }
+        }
+    }
 }
