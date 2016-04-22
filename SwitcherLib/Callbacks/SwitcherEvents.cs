@@ -10,7 +10,7 @@ namespace SwitcherLib.Callbacks
     public delegate void SwitcherEventHandler(object sender, object args);
 
  
-    class MixEffectBlockMonitor : IBMDSwitcherMixEffectBlockCallback
+    public class MixEffectBlockMonitor : IBMDSwitcherMixEffectBlockCallback
     {
         // Events:
         public event SwitcherEventHandler ProgramInputChanged;
@@ -22,6 +22,7 @@ namespace SwitcherLib.Callbacks
         public MixEffectBlockMonitor()
         {
         }
+
 
         void IBMDSwitcherMixEffectBlockCallback.PropertyChanged(_BMDSwitcherMixEffectBlockPropertyId propId)
         {
@@ -99,4 +100,18 @@ namespace SwitcherLib.Callbacks
             }
         }
     }
+    class SwitcherCallback : IBMDSwitcherCallback
+    {
+        public event SwitcherEventHandler SwitcherDisconnected;
+
+        void IBMDSwitcherCallback.Notify(_BMDSwitcherEventType eventType)
+        {
+            if (eventType == _BMDSwitcherEventType.bmdSwitcherEventTypeDisconnected)
+            {
+                if (SwitcherDisconnected != null)
+                    SwitcherDisconnected(this, null);
+            }
+        }
+    }
+
 }

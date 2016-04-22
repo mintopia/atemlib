@@ -10,9 +10,9 @@ namespace SwitcherLib
 {
     public partial class Switcher
     {
-        public IList<SwitcherAuxInput> GetAuxInputs()
+        public IList<SwitcherAuxPort> GetAuxInputs()
         {
-            IList<SwitcherAuxInput> list = new List<SwitcherAuxInput>();
+            IList<SwitcherAuxPort> list = new List<SwitcherAuxPort>();
             long Source = 0;
             IBMDSwitcherInputIterator inputIterator = null;
             IntPtr inputIteratorPtr;
@@ -43,7 +43,7 @@ namespace SwitcherLib
                         AUXCount++;
                         IBMDSwitcherInputAux WkAux = (IBMDSwitcherInputAux)input;
                         WkAux.GetInputSource(out Source);
-                        list.Add(new SwitcherAuxInput() { Name = AuxName, ID = AuxId, Label = AuxLabel, Source = Source });
+                        list.Add(new SwitcherAuxPort() { Name = AuxName, ID = AuxId, Label = AuxLabel, Source = Source });
 
                     }
 
@@ -52,7 +52,7 @@ namespace SwitcherLib
             
             return list;
         }
-        public void SetAuxUnput(long AuxID, long InputID)
+        public void SetAuxInput(long AuxID, long InputID)
         {
             IBMDSwitcherInputIterator inputIterator = null;
             IntPtr inputIteratorPtr;

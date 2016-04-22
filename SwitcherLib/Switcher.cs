@@ -11,9 +11,11 @@ namespace SwitcherLib
     public partial class Switcher
     {
         public static IBMDSwitcherMixEffectBlock m_mixEffectBlock1;
+        public static IBMDSwitcherMixEffectBlock m_mixEffectBlock2;
         protected IBMDSwitcher switcher;
-        protected String deviceAddress;
+        protected string deviceAddress;
         protected bool connected;
+
 
         public Switcher(string deviceAddress)
         {
@@ -65,7 +67,14 @@ namespace SwitcherLib
                     throw new SwitcherLibException("Unexpected: Could not get first mix effect block");
 
                 }
-                
+
+                // Get the second Mix Effect block (ME 2). 
+                m_mixEffectBlock2 = null;
+                if (meIterator != null)
+                {
+                    meIterator.Next(out m_mixEffectBlock2);
+                }
+
 
             }
             catch (COMException ex)
@@ -87,7 +96,6 @@ namespace SwitcherLib
                 throw new SwitcherLibException(String.Format("Unable to connect to switcher: {0}", ex.Message));
             }
         }
-
         public String GetProductName()
         {
             this.Connect();
@@ -279,18 +287,37 @@ namespace SwitcherLib
         public class ProgramInput
         {
             private long InputId;
+            public int me { get; set; }
             public long inputId
             {
                 get
                 {
-                    m_mixEffectBlock1.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, out InputId);
-                    return InputId;
+                    switch (me)
+                    {
+                        case 2:
+                            m_mixEffectBlock2.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, out InputId);
+                            return InputId;
+                        default:
+                            m_mixEffectBlock1.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, out InputId);
+                            return InputId;
+                    }
                 }
                 set
                 {
-                    if (m_mixEffectBlock1 != null)
+                    switch (me)
                     {
-                        m_mixEffectBlock1.SetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, value);
+                        case 2:
+                            if (m_mixEffectBlock2 != null)
+                            {
+                                m_mixEffectBlock2.SetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, value);
+                            }
+                            break;
+                        default:
+                            if (m_mixEffectBlock1 != null)
+                            {
+                                m_mixEffectBlock1.SetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, value);
+                            }
+                            break;
                     }
                 }
             }
@@ -298,52 +325,126 @@ namespace SwitcherLib
         public class PreviewInput
         {
             private long InputId;
+            public int me
+            {
+                get; set;
+            }
             public long inputId
             {
                 get
                 {
-                    m_mixEffectBlock1.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, out InputId);
-                    return InputId;
+                    switch (me)
+                    {
+                        case 2:
+                            m_mixEffectBlock2.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, out InputId);
+                            return InputId;
+                        default:
+                            m_mixEffectBlock1.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, out InputId);
+                            return InputId;
+
+                    }
+
                 }
                 set
                 {
-                    if (m_mixEffectBlock1 != null)
+                    switch (me)
                     {
-                        m_mixEffectBlock1.SetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, value);
+                        case 2:
+                            if (m_mixEffectBlock2 != null)
+                            {
+                                m_mixEffectBlock2.SetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, value);
+                            }
+                            break;
+                        default:
+                            if (m_mixEffectBlock1 != null)
+                            {
+                                m_mixEffectBlock1.SetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, value);
+                            }
+                            break;
                     }
                 }
             }
         }
 
-        public void Cut()
+        public void Cut(int me)
         {
-            if (m_mixEffectBlock1 != null)
+            switch (me)
             {
-                m_mixEffectBlock1.PerformCut();
+                case 1:
+                    if (m_mixEffectBlock1 != null)
+                    {
+                        m_mixEffectBlock1.PerformCut();
+                    }
+                    break;
+                case 2:
+                    if (m_mixEffectBlock2 != null)
+                    {
+                        m_mixEffectBlock2.PerformCut();
+                    }
+                    break;
             }
-        }
-        public void AutoTransition(double dTransitionFrames = 0)
-        {
-            if (m_mixEffectBlock1 != null)
-            {
-                if (dTransitionFrames != 0)
-                {
-                    //double dTransitionFrames = dFramesPerSecond * dTransitionSeconds;
-                    // ToDo - get current transition rate and then restore it after end of autotransition.
-                    BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters m_params =
-                    (BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters)m_mixEffectBlock1;
 
-                    m_params.SetRate((uint)dTransitionFrames);
-                }
-                m_mixEffectBlock1.PerformAutoTransition();
+        }
+        public void AutoTransition(int me, double dTransitionFrames = 0)
+        {
+            switch (me)
+            {
+                case 1:
+                    if (m_mixEffectBlock1 != null)
+                    {
+                        if (dTransitionFrames != 0)
+                        {
+                            //double dTransitionFrames = dFramesPerSecond * dTransitionSeconds;
+                            // ToDo - get current transition rate and then restore it after end of autotransition.
+                            BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters m_params =
+                            (BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters)m_mixEffectBlock1;
+
+                            m_params.SetRate((uint)dTransitionFrames);
+                        }
+                        m_mixEffectBlock1.PerformAutoTransition();
+                    }
+                    break;
+                case 2:
+                    if (m_mixEffectBlock2 != null)
+                    {
+                        if (dTransitionFrames != 0)
+                        {
+                            //double dTransitionFrames = dFramesPerSecond * dTransitionSeconds;
+                            // ToDo - get current transition rate and then restore it after end of autotransition.
+                            BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters m_params =
+                            (BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters)m_mixEffectBlock2;
+
+                            m_params.SetRate((uint)dTransitionFrames);
+                        }
+                        m_mixEffectBlock2.PerformAutoTransition();
+                    }
+                    break;
             }
         }
-        public void FTB()
+        public void FTB(int me)
         {
-            if (m_mixEffectBlock1 != null)
+            switch (me)
             {
-                m_mixEffectBlock1.PerformFadeToBlack();
+                case 1:
+                    if (m_mixEffectBlock1 != null)
+                    {
+                        m_mixEffectBlock1.PerformFadeToBlack();
+                    }
+                    break;
+                case 2:
+                    if (m_mixEffectBlock2 != null)
+                    {
+                        m_mixEffectBlock2.PerformFadeToBlack();
+                    }
+
+                    break;
             }
+        }
+        public class Transition
+        {
+            private long InputId;
+            public int me { get; set; }
+
         }
     }
 }

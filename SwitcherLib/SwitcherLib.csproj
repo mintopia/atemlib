@@ -59,7 +59,7 @@
     <Compile Include="Switcher.Aux.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="Switcher.Graphics.cs" />
-    <Compile Include="SwitcherAuxInput.cs" />
+    <Compile Include="SwitcherAuxPort.cs" />
     <Compile Include="SwitcherInput.cs" />
     <Compile Include="Upload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

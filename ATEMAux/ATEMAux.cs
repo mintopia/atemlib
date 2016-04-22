@@ -11,11 +11,19 @@ namespace ATEMAux
 {
     class ATEMAux
     {
+        private enum Format
+        {
+            Text,
+            JSON,
+            XML,
+            CSV,
+        }
         static int Main(string[] args)
         {
             try
             {
                 ATEMAux.ProcessArgs(args);
+                
                 return 0;
             }
             catch (SwitcherLibException ex)
@@ -47,6 +55,9 @@ namespace ATEMAux
         private static void ProcessArgs(string[] args)
         {
             IList<string> args1 = new List<string>();
+            int Aux = 0;
+            int Source = 0;
+            ATEMAux.Format format = ATEMAux.Format.Text;
             for (int index = 0; index < args.Length; index++)
             {
                 switch (args[index])
@@ -73,33 +84,54 @@ namespace ATEMAux
                     case "/debug":
                         Log.CurrentLevel = Log.Level.Debug;
                         break;
+                    case "-f":
+                    case "--format":
+                        if (args.Length > index)
+                        {
+                            switch (args[index + 1].ToLower())
+                            {
+                                case "json":
+                                    format = ATEMAux.Format.JSON;
+                                    break;
+                                case "xml":
+                                    format = ATEMAux.Format.XML;
+                                    break;
+                                case "csv":
+                                    format = ATEMAux.Format.CSV;
+                                    break;
+                                case "text":
+                                    format = ATEMAux.Format.Text;
+                                    break;
+                                default:
+                                    throw new SwitcherLibException(String.Format("Unknown format: {0}", format));
+                            }
+                            index++;
+                            break;
+                        }
+                        break;
+
 
                     case "-a":
                     case "--aux":
                         if (args.Length > index)
                         {
-                            int aux;
-                            int source;
-                            if (Int32.TryParse(args[index + 1].ToLower(), out aux))
-                                Console.WriteLine(String.Format("Set Aux: {0}", aux));
-                            else
-                                throw new SwitcherLibException(String.Format("No Aux number specified"));
+                            Aux = Int32.Parse(args[index + 1].ToLower());
+                            //if (Int32.TryParse(args[index + 1].ToLower(), out aux))
+                            //Console.WriteLine(String.Format("Set Aux: {0}", Aux));
 
-                            if (Int32.TryParse(args[index + 2].ToLower(), out source))
-                                Console.WriteLine(String.Format("Set Source: {0}", source));
-                            else
-                                throw new SwitcherLibException(String.Format("No Aux input specified"));
-
-                            SetAux(args1, aux, source);
+                            Source = Int32.Parse(args[index + 2].ToLower());
+                            //Console.WriteLine(String.Format("Set Source: {0}", Source));
+                            // SetAux(args1, aux, source);
                             break;
                         }
                         break;
 
                     default:
-                        ListAux(args1);
+                        args1.Add(args[index]);
                         break;
                 }
             }
+            ATEMAux.SetAux(format, args1, Aux, Source);
             
         }
         private static void ListAux(IList<string> args)
@@ -112,10 +144,10 @@ namespace ATEMAux
 
             Switcher switcher = new Switcher(args[0]);
             Log.Debug(String.Format("Switcher: {0}", switcher.GetProductName()));
-            IList<SwitcherAuxInput> inputs = switcher.GetAuxInputs();
+            IList<SwitcherAuxPort> inputs = switcher.GetAuxInputs();
 
 
-                    foreach (SwitcherAuxInput input in inputs)
+                    foreach (SwitcherAuxPort input in inputs)
                     {
                         Console.Out.WriteLine();
                         Console.Out.WriteLine(String.Format("   Name: {0}", input.Name));
@@ -124,11 +156,28 @@ namespace ATEMAux
                         Console.Out.WriteLine(String.Format(" Source: {0}", input.Source));
                     }
         }
-        private static void SetAux(IList<string> args, int aux, int source)
+        private static void SetAux(ATEMAux.Format format, IList<string> args, int aux, int source)
         {
             Switcher switcher = new Switcher(args[0]);
             Log.Debug(String.Format("Switcher: {0}", switcher.GetProductName()));
-            switcher.SetAuxUnput((long)aux, (long)source);
+            if (aux < 1 )
+            {
+                IList<SwitcherAuxPort> inputs = switcher.GetAuxInputs();
+
+
+                foreach (SwitcherAuxPort input in inputs)
+                {
+                    Console.Out.WriteLine();
+                    Console.Out.WriteLine(String.Format("   Name: {0}", input.Name));
+                    Console.Out.WriteLine(String.Format("     ID: {0}", input.ID.ToString()));
+                    Console.Out.WriteLine(String.Format("  Label: {0}", input.Label));
+                    Console.Out.WriteLine(String.Format(" Source: {0}", input.Source));
+                }
+
+            }
+            else {
+                switcher.SetAuxInput((long)aux, (long)source);
+                 }
         }
     }
 
