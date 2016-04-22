@@ -14,18 +14,25 @@ INTRODUCTION
 ------------
 
 This fork with (new) capabilities maintained by Ian Morrish <ian_morrish@hotmail.com>
-Version: 2.0.3
 Cuurent Status: I'm not a coder so this is very much copy/paste from what I can find on the web. Still trying different patterns for how make things objects 
 for use in PowerShell.
+Version: 2.0.4
+Now supports ME2
 
-Issues: compiled in 64bit - may give error 80040154 Class not registerred". unregistering BMDSwitcherAPI with windows\syswow64\regsvr and registering 64bit API works
-but the software pannel then fails to run. I'm working on it.
+Issues: compiled using SDK v 6.4. Works with any version of software panel greater than this
 
 Original Maintainer: Michael Smith <me@murray-mint.co.uk>
 Version: 2.0.1
 
 SwitcherLib.dll can be used from PowerShell script to automate ATEM functions
 (new) Inputs, Program, Preview, Cut, Autotransition, Macros, Aux
+
+POWERSHELL USAGE
+---------------------
+add-type -path 'documents\windowspowershell\SwitcherLib.dll'
+$atem = New-Object SwitcherLib.Switcher("192.168.1.240")
+$atem.Connect()
+
 Demo video https://youtu.be/h1GUKFynT9g
 More info on automating ATEM and CasparCG in my other project https://github.com/imorrish/GasparCG-PowerShell
 
@@ -36,9 +43,7 @@ BlackMagic ATEM switcher's media pool.
 
 (new) AtemInputs.exe lists all the input labels and names.
 
-(new) ATEMAux.exe lists the source for each AUX and lets you  set the source for an AUX (un tested)
-
-
+(new) ATEMAux.exe lists the source for each AUX and lets you  set the source for an AUX (un tested but works from PowerShell)
 
 
 MEDIAUPLOAD.EXE USAGE

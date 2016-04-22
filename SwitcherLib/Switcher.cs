@@ -366,7 +366,7 @@ namespace SwitcherLib
             }
         }
 
-        public void Cut(int me)
+        public void Cut(int me = 1)
         {
             switch (me)
             {
@@ -385,7 +385,7 @@ namespace SwitcherLib
             }
 
         }
-        public void AutoTransition(int me, double dTransitionFrames = 0)
+        public void AutoTransition(int me = 1, double dTransitionFrames = 0)
         {
             switch (me)
             {
@@ -421,7 +421,7 @@ namespace SwitcherLib
                     break;
             }
         }
-        public void FTB(int me)
+        public void FTB(int me = 1)
         {
             switch (me)
             {
