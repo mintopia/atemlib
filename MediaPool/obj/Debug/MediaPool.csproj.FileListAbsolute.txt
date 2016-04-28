@@ -3,8 +3,8 @@ C:\Users\imorrish\Documents\GitHub\atemlib\MediaPool\bin\Debug\MediaPool.exe
 C:\Users\imorrish\Documents\GitHub\atemlib\MediaPool\bin\Debug\MediaPool.pdb
 C:\Users\imorrish\Documents\GitHub\atemlib\MediaPool\bin\Debug\Newtonsoft.Json.dll
 C:\Users\imorrish\Documents\GitHub\atemlib\MediaPool\bin\Debug\SwitcherLib.dll
+C:\Users\imorrish\Documents\GitHub\atemlib\MediaPool\bin\Debug\SwitcherLib.pdb
 C:\Users\imorrish\Documents\GitHub\atemlib\MediaPool\bin\Debug\Newtonsoft.Json.xml
 C:\Users\imorrish\Documents\GitHub\atemlib\MediaPool\obj\Debug\MediaPool.csprojResolveAssemblyReference.cache
 C:\Users\imorrish\Documents\GitHub\atemlib\MediaPool\obj\Debug\MediaPool.exe
 C:\Users\imorrish\Documents\GitHub\atemlib\MediaPool\obj\Debug\MediaPool.pdb
-C:\Users\imorrish\Documents\GitHub\atemlib\MediaPool\bin\Debug\SwitcherLib.pdb

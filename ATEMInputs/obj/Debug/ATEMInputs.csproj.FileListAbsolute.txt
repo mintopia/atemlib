@@ -2,7 +2,7 @@ C:\Users\imorrish\Documents\GitHub\atemlib\ATEMInputs\bin\Debug\ATEMInputs.exe.c
 C:\Users\imorrish\Documents\GitHub\atemlib\ATEMInputs\bin\Debug\ATEMInputs.exe
 C:\Users\imorrish\Documents\GitHub\atemlib\ATEMInputs\bin\Debug\ATEMInputs.pdb
 C:\Users\imorrish\Documents\GitHub\atemlib\ATEMInputs\bin\Debug\SwitcherLib.dll
+C:\Users\imorrish\Documents\GitHub\atemlib\ATEMInputs\bin\Debug\SwitcherLib.pdb
 C:\Users\imorrish\Documents\GitHub\atemlib\ATEMInputs\obj\Debug\ATEMInputs.csprojResolveAssemblyReference.cache
 C:\Users\imorrish\Documents\GitHub\atemlib\ATEMInputs\obj\Debug\ATEMInputs.exe
 C:\Users\imorrish\Documents\GitHub\atemlib\ATEMInputs\obj\Debug\ATEMInputs.pdb
-C:\Users\imorrish\Documents\GitHub\atemlib\ATEMInputs\bin\Debug\SwitcherLib.pdb

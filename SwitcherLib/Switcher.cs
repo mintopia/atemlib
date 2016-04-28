@@ -12,6 +12,8 @@ namespace SwitcherLib
     {
         public static IBMDSwitcherMixEffectBlock m_mixEffectBlock1;
         public static IBMDSwitcherMixEffectBlock m_mixEffectBlock2;
+        public static IBMDSwitcherDownstreamKey me1_dsk1;
+        public static IBMDSwitcherDownstreamKey me2_dsk1;
         protected IBMDSwitcher switcher;
         protected string deviceAddress;
         protected bool connected;
@@ -45,6 +47,7 @@ namespace SwitcherLib
                 // Get the first Mix Effect block (ME 1). 
                 m_mixEffectBlock1 = null;
 
+
                 IBMDSwitcherMixEffectBlockIterator meIterator = null;
                 IntPtr meIteratorPtr;
                 Guid meIteratorIID = typeof(IBMDSwitcherMixEffectBlockIterator).GUID;
@@ -60,6 +63,24 @@ namespace SwitcherLib
                 if (meIterator != null)
                 {
                     meIterator.Next(out m_mixEffectBlock1);
+
+                    //Now get DSK's
+                    me1_dsk1 = null;
+                    IBMDSwitcherDownstreamKeyIterator keyIterator = null;
+                    IntPtr keyIteratorPtr;
+                    Guid keyIteratorIID = typeof(IBMDSwitcherDownstreamKeyIterator).GUID;
+                    //IBMDSwitcherKeyIterator keyIterator;
+                    switcher.CreateIterator(ref keyIteratorIID, out keyIteratorPtr);
+                    if (keyIteratorPtr != null)
+                    {
+                        keyIterator = (IBMDSwitcherDownstreamKeyIterator)Marshal.GetObjectForIUnknown(keyIteratorPtr);
+                    }
+
+                    if (keyIterator != null)
+                    {
+                        
+                        keyIterator.Next(out me1_dsk1);
+                    }
                 }
 
                 if (m_mixEffectBlock1 == null)
@@ -73,6 +94,24 @@ namespace SwitcherLib
                 if (meIterator != null)
                 {
                     meIterator.Next(out m_mixEffectBlock2);
+
+                    //Now get DSK's
+                    me2_dsk1 = null;
+                    IBMDSwitcherDownstreamKeyIterator keyIterator = null;
+                    IntPtr keyIteratorPtr;
+                    Guid keyIteratorIID = typeof(IBMDSwitcherDownstreamKeyIterator).GUID;
+                    //IBMDSwitcherKeyIterator keyIterator;
+                    switcher.CreateIterator(ref keyIteratorIID, out keyIteratorPtr);
+                    if (keyIteratorPtr != null)
+                    {
+                        keyIterator = (IBMDSwitcherDownstreamKeyIterator)Marshal.GetObjectForIUnknown(keyIteratorPtr);
+                    }
+
+                    if (keyIterator != null)
+                    {
+
+                        keyIterator.Next(out me2_dsk1);
+                    }
                 }
 
 
@@ -445,6 +484,124 @@ namespace SwitcherLib
             private long InputId;
             public int me { get; set; }
 
+        }
+        public class Key
+        {
+            private int OnAir;
+            private long InputCut;
+            private long InputFill;
+            public int me
+            {
+                get; set;
+            }
+            public int onair
+            {
+                get
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            me2_dsk1.GetOnAir(out OnAir);
+                            return OnAir;
+                        default:
+                            me1_dsk1.GetOnAir(out OnAir);
+                            
+                            return OnAir;
+
+                    }
+
+                }
+                set
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            if (me2_dsk1 != null)
+                            {
+                                me2_dsk1.SetOnAir(value);
+                            }
+                            break;
+                        default:
+                            if (me1_dsk1 != null)
+                            {
+                                me1_dsk1.SetOnAir(value);
+                            }
+                            break;
+                    }
+                }
+            }
+            public long inputCut
+            {
+                get
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            me2_dsk1.GetInputCut(out InputCut);
+                            return InputCut;
+                        default:
+                            me1_dsk1.GetInputCut(out InputCut);
+
+                            return InputCut;
+
+                    }
+
+                }
+                set
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            if (me2_dsk1 != null)
+                            {
+                                me2_dsk1.SetInputCut(value);
+                            }
+                            break;
+                        default:
+                            if (me1_dsk1 != null)
+                            {
+                                me1_dsk1.SetInputCut(value);
+                            }
+                            break;
+                    }
+                }
+            }
+            public long inputFill
+            {
+                get
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            me2_dsk1.GetInputFill(out InputFill);
+                            return InputFill;
+                        default:
+                            me1_dsk1.GetInputFill(out InputFill);
+
+                            return InputFill;
+
+                    }
+
+                }
+                set
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            if (me2_dsk1 != null)
+                            {
+                                me2_dsk1.SetInputFill(value);
+                            }
+                            break;
+                        default:
+                            if (me1_dsk1 != null)
+                            {
+                                me1_dsk1.SetInputFill(value);
+                            }
+                            break;
+                    }
+                }
+            }
         }
     }
 }
