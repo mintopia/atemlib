@@ -34,7 +34,8 @@ namespace SwitcherLib
             this.switcher = switcher;
             this.filename = filename;
             this.uploadSlot = uploadSlot;
-
+            //check
+            
             if (!File.Exists(filename))
             {
                 throw new SwitcherLibException(String.Format("{0} does not exist", filename));
@@ -42,6 +43,7 @@ namespace SwitcherLib
 
             this.switcher.Connect();
             this.stills = this.GetStills();
+
         }
 
         public bool InProgress()
@@ -76,6 +78,17 @@ namespace SwitcherLib
             this.frame = this.GetFrame();
             this.lockCallback = (IBMDSwitcherLockCallback)new UploadLock(this);
             this.stills.Lock(this.lockCallback);
+            
+        }
+        public void StartBlocking()
+        {
+            this.currentStatus = Upload.Status.Started;
+            this.frame = this.GetFrame();
+            this.lockCallback = (IBMDSwitcherLockCallback)new UploadLock(this);
+            this.stills.Lock(this.lockCallback);
+            while (currentStatus != Status.Completed)
+            {
+                           }
         }
 
         protected IBMDSwitcherFrame GetFrame()
@@ -84,8 +97,24 @@ namespace SwitcherLib
             IBMDSwitcherFrame frame;
             switcherMediaPool.CreateFrame(_BMDSwitcherPixelFormat.bmdSwitcherPixelFormat8BitARGB, (uint)this.switcher.GetVideoWidth(), (uint)this.switcher.GetVideoHeight(), out frame);
             IntPtr buffer;
+            byte[] source;
             frame.GetBytes(out buffer);
-            byte[] source = this.ConvertImage();
+            switch (Path.GetExtension(this.filename).ToLower())
+            {
+                case ".jpg":
+                case ".png":
+                case ".bmp":
+                case ".gif":
+                case ".tif":
+                    source = this.ConvertImage();
+                    break;
+                case ".tga":
+                    throw new SwitcherLibException(String.Format("TGA not supported yet for: {0}", this.filename));
+                default:
+                    throw new SwitcherLibException(String.Format("Unsupported file extension: {0}", Path.GetExtension(this.filename)));
+
+            }
+            //source = this.ConvertImage();
             Marshal.Copy(source, 0, buffer, source.Length);
             return frame;
         }

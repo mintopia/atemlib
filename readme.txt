@@ -13,13 +13,38 @@ CONTENTS OF THIS FILE
 INTRODUCTION
 ------------
 
-Version: 2.0.0
-Current Maintainer: Michael Smith <me@murray-mint.co.uk>
+This fork with (new) capabilities maintained by Ian Morrish <ian_morrish@hotmail.com>
+Cuurent Status: I'm not a coder so this is very much copy/paste from what I can find on the web. Still trying different patterns for how make things objects 
+for use in PowerShell.
+Version: 2.0.4
+Now supports ME2
+
+Issues: compiled using SDK v 6.4. Works with any version of software panel greater than this
+
+Original Maintainer: Michael Smith <me@murray-mint.co.uk>
+Version: 2.0.1
+
+SwitcherLib.dll can be used from PowerShell script to automate ATEM functions
+(new) Inputs, Program, Preview, Cut, Autotransition, Macros, Aux
+
+POWERSHELL USAGE
+---------------------
+add-type -path 'documents\windowspowershell\SwitcherLib.dll'
+$atem = New-Object SwitcherLib.Switcher("192.168.1.240")
+$atem.Connect()
+
+Demo video https://youtu.be/h1GUKFynT9g
+More info on automating ATEM and CasparCG in my other project https://github.com/imorrish/GasparCG-PowerShell
 
 MediaUpload.exe allows you to upload images to specific slots in a
 BlackMagic ATEM switcher's media pool.
 
-MediaPool.exe lists all the media in the switcher's media pool.
+(new) MediaPool.exe lists all the media in the switcher's media pool.
+
+(new) AtemInputs.exe lists all the input labels and names.
+
+(new) ATEMAux.exe lists the source for each AUX and lets you  set the source for an AUX (un tested but works from PowerShell)
+
 
 MEDIAUPLOAD.EXE USAGE
 ---------------------
@@ -78,7 +103,7 @@ REQUIREMENTS
 
    http://www.microsoft.com/en-gb/download/details.aspx?id=30653
 
- - Blackmagic ATEM Switchers Update 6.2
+ - Blackmagic ATEM Switchers Update 6.4 (Note: this is not the latest version of BMD switcher software but will work if you have a more recent version)
 
    https://www.blackmagicdesign.com/uk/support/family/atem-live-production-switchers
 
@@ -108,6 +133,7 @@ This has been tested with a Blackmagic Design ATEM Production Studio 4K. I do
 not have access to any other switchers to test with, but if they use version
 6.2 of the SDK, then they should work.
 
+SwitcherLib.dll has been tested with PowerShell on Windows 10 and a Television Studio only
 
 CONTACT DETAILS
 ---------------

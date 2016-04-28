@@ -8,11 +8,16 @@ using System.Threading.Tasks;
 
 namespace SwitcherLib
 {
-    public class Switcher
+    public partial class Switcher
     {
+        public static IBMDSwitcherMixEffectBlock m_mixEffectBlock1;
+        public static IBMDSwitcherMixEffectBlock m_mixEffectBlock2;
+        public static IBMDSwitcherDownstreamKey me1_dsk1;
+        public static IBMDSwitcherDownstreamKey me2_dsk1;
         protected IBMDSwitcher switcher;
-        protected String deviceAddress;
+        protected string deviceAddress;
         protected bool connected;
+
 
         public Switcher(string deviceAddress)
         {
@@ -38,6 +43,78 @@ namespace SwitcherLib
             {
                 switcherDiscovery.ConnectTo(this.deviceAddress, out this.switcher, out failReason);
                 this.connected = true;
+
+                // Get the first Mix Effect block (ME 1). 
+                m_mixEffectBlock1 = null;
+
+
+                IBMDSwitcherMixEffectBlockIterator meIterator = null;
+                IntPtr meIteratorPtr;
+                Guid meIteratorIID = typeof(IBMDSwitcherMixEffectBlockIterator).GUID;
+                switcher.CreateIterator(ref meIteratorIID, out meIteratorPtr);
+                if (meIteratorPtr != null)
+                {
+                    meIterator = (IBMDSwitcherMixEffectBlockIterator)Marshal.GetObjectForIUnknown(meIteratorPtr);
+                }
+
+                if (meIterator == null)
+                    return;
+
+                if (meIterator != null)
+                {
+                    meIterator.Next(out m_mixEffectBlock1);
+
+                    //Now get DSK's
+                    me1_dsk1 = null;
+                    IBMDSwitcherDownstreamKeyIterator keyIterator = null;
+                    IntPtr keyIteratorPtr;
+                    Guid keyIteratorIID = typeof(IBMDSwitcherDownstreamKeyIterator).GUID;
+                    //IBMDSwitcherKeyIterator keyIterator;
+                    switcher.CreateIterator(ref keyIteratorIID, out keyIteratorPtr);
+                    if (keyIteratorPtr != null)
+                    {
+                        keyIterator = (IBMDSwitcherDownstreamKeyIterator)Marshal.GetObjectForIUnknown(keyIteratorPtr);
+                    }
+
+                    if (keyIterator != null)
+                    {
+                        
+                        keyIterator.Next(out me1_dsk1);
+                    }
+                }
+
+                if (m_mixEffectBlock1 == null)
+                {
+                    throw new SwitcherLibException("Unexpected: Could not get first mix effect block");
+
+                }
+
+                // Get the second Mix Effect block (ME 2). 
+                m_mixEffectBlock2 = null;
+                if (meIterator != null)
+                {
+                    meIterator.Next(out m_mixEffectBlock2);
+
+                    //Now get DSK's
+                    me2_dsk1 = null;
+                    IBMDSwitcherDownstreamKeyIterator keyIterator = null;
+                    IntPtr keyIteratorPtr;
+                    Guid keyIteratorIID = typeof(IBMDSwitcherDownstreamKeyIterator).GUID;
+                    //IBMDSwitcherKeyIterator keyIterator;
+                    switcher.CreateIterator(ref keyIteratorIID, out keyIteratorPtr);
+                    if (keyIteratorPtr != null)
+                    {
+                        keyIterator = (IBMDSwitcherDownstreamKeyIterator)Marshal.GetObjectForIUnknown(keyIteratorPtr);
+                    }
+
+                    if (keyIterator != null)
+                    {
+
+                        keyIterator.Next(out me2_dsk1);
+                    }
+                }
+
+
             }
             catch (COMException ex)
             {
@@ -58,7 +135,6 @@ namespace SwitcherLib
                 throw new SwitcherLibException(String.Format("Unable to connect to switcher: {0}", ex.Message));
             }
         }
-
         public String GetProductName()
         {
             this.Connect();
@@ -66,7 +142,13 @@ namespace SwitcherLib
             this.switcher.GetProductName(out productName);
             return productName;
         }
-
+        public String GetVideoMode()
+        {
+            this.Connect();
+            _BMDSwitcherVideoMode videoMode;
+            this.switcher.GetVideoMode(out videoMode);
+            return videoMode.ToString();
+        }
         public int GetVideoHeight()
         {
             this.Connect();
@@ -167,5 +249,359 @@ namespace SwitcherLib
             return list;
         }
 
+        public IList<SwitcherInput> GetInputs()
+        {
+            IList<SwitcherInput> list = new List<SwitcherInput>();
+            IBMDSwitcherInputIterator inputIterator = null;
+            IntPtr inputIteratorPtr;
+            Guid inputIteratorIID = typeof(IBMDSwitcherInputIterator).GUID;
+            switcher.CreateIterator(ref inputIteratorIID, out inputIteratorPtr);
+            if (inputIteratorPtr != null)
+            {
+                inputIterator = (IBMDSwitcherInputIterator)Marshal.GetObjectForIUnknown(inputIteratorPtr);
+            }
+
+
+            IBMDSwitcherInput input;
+            inputIterator.Next(out input);
+            while (input != null)
+            {
+                string inputName;
+                string inputLabel;
+                string iPortType;
+                long inputPortType;
+                long inputId;
+
+                input.GetInputId(out inputId);
+                input.GetString(_BMDSwitcherInputPropertyId.bmdSwitcherInputPropertyIdLongName, out inputName);
+                input.GetString(_BMDSwitcherInputPropertyId.bmdSwitcherInputPropertyIdShortName, out inputLabel);
+                input.GetInt(_BMDSwitcherInputPropertyId.bmdSwitcherInputPropertyIdPortType, out inputPortType);
+                //must be a better way of getting the port type as a string value - fix this hack when I know what I'm doing
+                switch (inputPortType)
+                {
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeExternal:
+                        iPortType = "External Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeBlack:
+                        iPortType = "Black Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeColorBars:
+                        iPortType = "Color Bars Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeColorGenerator:
+                        iPortType = "Color Generator Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeMediaPlayerFill:
+                        iPortType = "Media Player Fill Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeMediaPlayerCut:
+                        iPortType = "Media Player Cut Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeSuperSource:
+                        iPortType = "Super Source Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeMixEffectBlockOutput:
+                        iPortType = "ME Block Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeAuxOutput:
+                        iPortType = "Aux Port";
+                        break;
+                    case (long)_BMDSwitcherPortType.bmdSwitcherPortTypeKeyCutOutput:
+                        iPortType = "Aux Port";
+                        break;
+                    default:
+                        throw new SwitcherLibException(String.Format("Unsupported port type: {0}", inputPortType.ToString()));
+
+                }
+                // Add items to list:
+                list.Add(new SwitcherInput() { Name = inputName, ID = inputId, Label = inputLabel, PortType = iPortType });
+
+                inputIterator.Next(out input);
+            }
+
+            return list;
+
+        }
+
+        public class ProgramInput
+        {
+            private long InputId;
+            public int me { get; set; }
+            public long inputId
+            {
+                get
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            m_mixEffectBlock2.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, out InputId);
+                            return InputId;
+                        default:
+                            m_mixEffectBlock1.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, out InputId);
+                            return InputId;
+                    }
+                }
+                set
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            if (m_mixEffectBlock2 != null)
+                            {
+                                m_mixEffectBlock2.SetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, value);
+                            }
+                            break;
+                        default:
+                            if (m_mixEffectBlock1 != null)
+                            {
+                                m_mixEffectBlock1.SetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdProgramInput, value);
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+        public class PreviewInput
+        {
+            private long InputId;
+            public int me
+            {
+                get; set;
+            }
+            public long inputId
+            {
+                get
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            m_mixEffectBlock2.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, out InputId);
+                            return InputId;
+                        default:
+                            m_mixEffectBlock1.GetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, out InputId);
+                            return InputId;
+
+                    }
+
+                }
+                set
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            if (m_mixEffectBlock2 != null)
+                            {
+                                m_mixEffectBlock2.SetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, value);
+                            }
+                            break;
+                        default:
+                            if (m_mixEffectBlock1 != null)
+                            {
+                                m_mixEffectBlock1.SetInt(_BMDSwitcherMixEffectBlockPropertyId.bmdSwitcherMixEffectBlockPropertyIdPreviewInput, value);
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+
+        public void Cut(int me = 1)
+        {
+            switch (me)
+            {
+                case 1:
+                    if (m_mixEffectBlock1 != null)
+                    {
+                        m_mixEffectBlock1.PerformCut();
+                    }
+                    break;
+                case 2:
+                    if (m_mixEffectBlock2 != null)
+                    {
+                        m_mixEffectBlock2.PerformCut();
+                    }
+                    break;
+            }
+
+        }
+        public void AutoTransition(int me = 1, double dTransitionFrames = 0)
+        {
+            switch (me)
+            {
+                case 1:
+                    if (m_mixEffectBlock1 != null)
+                    {
+                        if (dTransitionFrames != 0)
+                        {
+                            //double dTransitionFrames = dFramesPerSecond * dTransitionSeconds;
+                            // ToDo - get current transition rate and then restore it after end of autotransition.
+                            BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters m_params =
+                            (BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters)m_mixEffectBlock1;
+
+                            m_params.SetRate((uint)dTransitionFrames);
+                        }
+                        m_mixEffectBlock1.PerformAutoTransition();
+                    }
+                    break;
+                case 2:
+                    if (m_mixEffectBlock2 != null)
+                    {
+                        if (dTransitionFrames != 0)
+                        {
+                            //double dTransitionFrames = dFramesPerSecond * dTransitionSeconds;
+                            // ToDo - get current transition rate and then restore it after end of autotransition.
+                            BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters m_params =
+                            (BMDSwitcherAPI.IBMDSwitcherTransitionMixParameters)m_mixEffectBlock2;
+
+                            m_params.SetRate((uint)dTransitionFrames);
+                        }
+                        m_mixEffectBlock2.PerformAutoTransition();
+                    }
+                    break;
+            }
+        }
+        public void FTB(int me = 1)
+        {
+            switch (me)
+            {
+                case 1:
+                    if (m_mixEffectBlock1 != null)
+                    {
+                        m_mixEffectBlock1.PerformFadeToBlack();
+                    }
+                    break;
+                case 2:
+                    if (m_mixEffectBlock2 != null)
+                    {
+                        m_mixEffectBlock2.PerformFadeToBlack();
+                    }
+
+                    break;
+            }
+        }
+        public class Transition
+        {
+            private long InputId;
+            public int me { get; set; }
+
+        }
+        public class Key
+        {
+            private int OnAir;
+            private long InputCut;
+            private long InputFill;
+            public int me
+            {
+                get; set;
+            }
+            public int onair
+            {
+                get
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            me2_dsk1.GetOnAir(out OnAir);
+                            return OnAir;
+                        default:
+                            me1_dsk1.GetOnAir(out OnAir);
+                            
+                            return OnAir;
+
+                    }
+
+                }
+                set
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            if (me2_dsk1 != null)
+                            {
+                                me2_dsk1.SetOnAir(value);
+                            }
+                            break;
+                        default:
+                            if (me1_dsk1 != null)
+                            {
+                                me1_dsk1.SetOnAir(value);
+                            }
+                            break;
+                    }
+                }
+            }
+            public long inputCut
+            {
+                get
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            me2_dsk1.GetInputCut(out InputCut);
+                            return InputCut;
+                        default:
+                            me1_dsk1.GetInputCut(out InputCut);
+
+                            return InputCut;
+
+                    }
+
+                }
+                set
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            if (me2_dsk1 != null)
+                            {
+                                me2_dsk1.SetInputCut(value);
+                            }
+                            break;
+                        default:
+                            if (me1_dsk1 != null)
+                            {
+                                me1_dsk1.SetInputCut(value);
+                            }
+                            break;
+                    }
+                }
+            }
+            public long inputFill
+            {
+                get
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            me2_dsk1.GetInputFill(out InputFill);
+                            return InputFill;
+                        default:
+                            me1_dsk1.GetInputFill(out InputFill);
+
+                            return InputFill;
+
+                    }
+
+                }
+                set
+                {
+                    switch (me)
+                    {
+                        case 2:
+                            if (me2_dsk1 != null)
+                            {
+                                me2_dsk1.SetInputFill(value);
+                            }
+                            break;
+                        default:
+                            if (me1_dsk1 != null)
+                            {
+                                me1_dsk1.SetInputFill(value);
+                            }
+                            break;
+                    }
+                }
+            }
+        }
     }
 }
