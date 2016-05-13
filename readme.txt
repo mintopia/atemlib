@@ -14,7 +14,7 @@ INTRODUCTION
 ------------
 
 Version: 2.0.0
-Current Maintainer: Michael Smith <me@murray-mint.co.uk>
+Current Maintainer: Jessica Smith <jess@mintopia.net>
 
 MediaUpload.exe allows you to upload images to specific slots in a
 BlackMagic ATEM switcher's media pool.
@@ -139,7 +139,7 @@ Version 1.0.0 - 2014-09-21:
 MIT LICENSE
 -----------
 
-Copyright (C) 2014 by Michael Smith
+Copyright (C) 2016 by Jessica Smith
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
