@@ -32,7 +32,7 @@ Example:
 
 To upload myfile.png to Slot 1 on a switcher at 192.168.0.254:
 
-    `MediaUpload.exe 192.168.0.254 1 myfile.png`
+    MediaUpload.exe 192.168.0.254 1 myfile.png
 
 ### Media Pool
 
@@ -55,11 +55,11 @@ Example:
 
 To see what's in the media pool for a switcher at 192.168.0.254:
 
-    `MediaPool.exe 192.168.0.254`
+    MediaPool.exe 192.168.0.254
 
 To view the output in JSON format:
 
-    `MediaPool.exe -f json 192.168.0.254`
+    MediaPool.exe -f json 192.168.0.254
 
 ## Requirements
 
