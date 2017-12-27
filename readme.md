@@ -1,28 +1,15 @@
-CONTENTS OF THIS FILE
----------------------
+# Blackmagic ATEM C# Library
 
- * Introduction
- * Usage
- * Requirements
- * Supported Images
- * Notes
- * Contact Details
- * Changelog
- * MIT License
+## Introduction
 
-INTRODUCTION
-------------
+This library is a collection of tools for working with Blackmagic ATEM video switchers. It is intended to be used as part of automation solutions.
 
-Version: 2.0.0
-Current Maintainer: Jessica Smith <jess@mintopia.net>
-
-MediaUpload.exe allows you to upload images to specific slots in a
-BlackMagic ATEM switcher's media pool.
-
+MediaUpload.exe allows you to upload images to specific slots in a BlackMagic ATEM switcher's media pool.
 MediaPool.exe lists all the media in the switcher's media pool.
 
-MEDIAUPLOAD.EXE USAGE
----------------------
+## Usage
+
+### Media Upload
 
 MediaUpload.exe [options] <hostname> <slot> <filename>
 
@@ -45,8 +32,7 @@ To upload myfile.png to Slot 1 on a switcher at 192.168.0.254:
 
     MediaUpload.exe 192.168.0.254 1 myfile.png
 
-MEDIAPOOL.EXE USAGE
--------------------
+### Media Pool
 
 MediaPool.exe [options] <hostname>
 
@@ -71,73 +57,56 @@ To view the output in JSON format:
 
     MediaPool.exe -f json 192.168.0.254
 
-REQUIREMENTS
-------------
+## Requirements
 
- - Microsoft .NET Framework 4.5
+ - [Microsoft .NET Framework 4.5](http://www.microsoft.com/en-gb/download/details.aspx?id=30653) 
+ - [Blackmagic ATEM Switchers Update 6.2](https://www.blackmagicdesign.com/uk/support/family/atem-live-production-switchers) or later
 
-   http://www.microsoft.com/en-gb/download/details.aspx?id=30653
+## Supported Image Formats
 
- - Blackmagic ATEM Switchers Update 6.2
+The Windows GD+ library is used for image manipulation. This currently supports:
 
-   https://www.blackmagicdesign.com/uk/support/family/atem-live-production-switchers
+  - PNG
+  - BMP
+  - JPEG
+  - GIF
+  - TIFF
 
+Alpha channels are supported and will be included in the images sent to the switcher.
 
-SUPPORTED IMAGES
-------------------
+Images will need to be the same resolution as the switcher. Running in debug mode you can see the detected resolution on the switcher.
 
-The Windows GD+ library is used for image manipulation. This currently
-supports:
+## Notes
 
-  PNG
-  BMP
-  JPEG
-  GIF
-  TIFF
-
-Alpha channels are supported and will be included in the images sent to the
-switcher.
-
-Images will need to be the same resolution as the switcher. Running in
-debug mode you can see the detected resolution on the switcher.
-
-NOTES
------
-
-This has been tested with a Blackmagic Design ATEM Production Studio 4K. I do
-not have access to any other switchers to test with, but if they use version
-6.2 of the SDK, then they should work.
+This has been tested with a Blackmagic Design ATEM Production Studio 4K. I do not have access to any other switchers to test with, but if they use version 6.2 or greater of the SDK, then they should work.
 
 
-CONTACT DETAILS
----------------
+## Contact Details
 
 If you're using this for anything interesting, I'd love to hear about it.
 
- * Web: http://www.murray-mint.co.uk
- * Email: me@murray-mint.co.uk
- * Twitter: @MurrayMintUK
- 
+ * Web: http://www.mintopia.net
+ * Email: jess@mintopia.net
+ * Twitter: @MintopiaUK
 
-CHANGELOG
----------
+ * Bitcoin: 1FhMKKabMSJx4M4Trm73JTTrALg7DmxbbP
+ * Ethereum: 0x8063501c3944846579fb62aaAe3965d933638f35
 
-Version 2.0.0 - 2014-12-24:
- * Rebuilt from decompiled source of original binary
- * Added enumerating of the media pool
+## ChangeLog
 
-Version 1.0.1 - 2014-09-22:
- * Moved switcher functions into a separate library to allow development of
-   more tools
- * Slight change to arguments
- * Add support for specifying the name of the image when uploading it
+### Version 2.0.0 - 2014-12-24:
+ - Rebuilt from decompiled source of original binary
+ - Added enumerating of the media pool
 
-Version 1.0.0 - 2014-09-21:
- * Initial version
+### Version 1.0.1 - 2014-09-22:
+ - Moved switcher functions into a separate library to allow development of more tools
+ - Slight change to arguments
+ - Add support for specifying the name of the image when uploading it
 
+### Version 1.0.0 - 2014-09-21:
+ - Initial version
 
-MIT LICENSE
------------
+## MIT License
 
 Copyright (C) 2016 by Jessica Smith
 
