@@ -11,6 +11,7 @@ MediaPool.exe lists all the media in the switcher's media pool.
 
 ### Media Upload
 
+```
 MediaUpload.exe [options] <hostname> <slot> <filename>
 
 Arguments:
@@ -25,15 +26,17 @@ Options:
  -d, --debug         - Enable debug output
  -v, --version       - View version information
  -n, --name          - Set the name of the image in the media pool
+```
 
 Example:
 
 To upload myfile.png to Slot 1 on a switcher at 192.168.0.254:
 
-    MediaUpload.exe 192.168.0.254 1 myfile.png
+    `MediaUpload.exe 192.168.0.254 1 myfile.png`
 
 ### Media Pool
 
+```
 MediaPool.exe [options] <hostname>
 
 Arguments:
@@ -46,16 +49,17 @@ Options:
  -d, --debug     - Debug output
  -v, --version   - Version information
  -f, --format    - The output format. Either xml, csv, json or text
+```
 
 Example:
 
 To see what's in the media pool for a switcher at 192.168.0.254:
 
-    MediaPool.exe 192.168.0.254
+    `MediaPool.exe 192.168.0.254`
 
 To view the output in JSON format:
 
-    MediaPool.exe -f json 192.168.0.254
+    `MediaPool.exe -f json 192.168.0.254`
 
 ## Requirements
 
@@ -85,12 +89,12 @@ This has been tested with a Blackmagic Design ATEM Production Studio 4K. I do no
 
 If you're using this for anything interesting, I'd love to hear about it.
 
- * Web: http://www.mintopia.net
- * Email: jess@mintopia.net
- * Twitter: @MintopiaUK
+ - Web: http://www.mintopia.net
+ - Email: jess@mintopia.net
+ - Twitter: @MintopiaUK
 
- * Bitcoin: 1FhMKKabMSJx4M4Trm73JTTrALg7DmxbbP
- * Ethereum: 0x8063501c3944846579fb62aaAe3965d933638f35
+ - Bitcoin: 1FhMKKabMSJx4M4Trm73JTTrALg7DmxbbP
+ - Ethereum: 0x8063501c3944846579fb62aaAe3965d933638f35
 
 ## ChangeLog
 
