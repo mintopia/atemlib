@@ -51,6 +51,9 @@
     <Compile Include="SwitcherLibException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
     <COMReference Include="BMDSwitcherAPI">
       <Guid>{8A92B919-156C-4D61-94EF-03F9BE4004B0}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -61,7 +64,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
