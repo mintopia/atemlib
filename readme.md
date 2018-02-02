@@ -64,7 +64,7 @@ To view the output in JSON format:
 ## Requirements
 
  - [Microsoft .NET Framework 4.5](http://www.microsoft.com/en-gb/download/details.aspx?id=30653) 
- - [Blackmagic ATEM Switchers Update 6.2](https://www.blackmagicdesign.com/uk/support/family/atem-live-production-switchers) or later
+ - [Blackmagic ATEM Switchers Update 7.3](https://www.blackmagicdesign.com/uk/support/family/atem-live-production-switchers) or later
 
 ## Supported Image Formats
 
@@ -97,6 +97,12 @@ If you're using this for anything interesting, I'd love to hear about it.
  - Ethereum: 0x8063501c3944846579fb62aaAe3965d933638f35
 
 ## ChangeLog
+
+### Version 2.0.2 - 2018-02-02:
+ - Add support for NTSC SD
+
+### Version 2.0.1 - 2018-02-01:
+ - Built against Blackmagic Switcher SDK 7.3
 
 ### Version 2.0.0 - 2014-12-24:
  - Rebuilt from decompiled source of original binary

@@ -115,7 +115,8 @@ namespace SwitcherLib
 
                 case 2160:
                     return 3840;
-                case 480;
+
+                case 480:
                     return 720;
                 default:
                     throw new SwitcherLibException(String.Format("Unsupported video height: {0}", videoHeight.ToString()));
