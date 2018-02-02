@@ -95,6 +95,8 @@ namespace SwitcherLib
                 case _BMDSwitcherVideoMode.bmdSwitcherVideoMode1080p5994:
                     return 1080;
 
+                case _BMDSwitcherVideoMode.bmdSwitcherVideoMode525i5994NTSC:
+                    return 480;
                 default:
                     throw new SwitcherLibException(String.Format("Unsupported resolution: {0}", videoMode.ToString()));
             }
@@ -113,7 +115,8 @@ namespace SwitcherLib
 
                 case 2160:
                     return 3840;
-
+                case 480;
+                    return 720;
                 default:
                     throw new SwitcherLibException(String.Format("Unsupported video height: {0}", videoHeight.ToString()));
             }
